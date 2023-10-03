@@ -1,0 +1,17 @@
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+def cloneGraph(graph:Node):
+    oldToNew = {}
+    def dfs(node):
+        if node in oldToNew:
+            return oldToNew[node]
+        #if node don't exist in hashMap then create clone node
+        copy = Node(node.val)
+        oldToNew[node] = copy
+        for nei in node.neighbors:
+            copy.neighbors.append(dfs(nei))
+        return copy
+    
+    return dfs(graph) if graph else None
